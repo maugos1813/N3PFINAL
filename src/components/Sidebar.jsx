@@ -9,6 +9,7 @@ import { MediumBox } from "./MediumBox";
 import { Footer } from "./Footer";
 import { ModalSearch } from "./ModalSearch";
 import { API } from "../useFetch";
+import ubi from "/alfiler.png"
 
 export const Sidebar = () => {
   const [modal, setModal] = useState(false);
@@ -29,9 +30,21 @@ export const Sidebar = () => {
             <p className="text-white text-center mt-[290px] text-[144px] sm:mt-[350px] font-Raleway w-[192px]">
               {data && Math.round(data?.main?.temp - 273.15)}
             </p>
-            <p className="text-white mt-[410px] ml-[150px] text-[30px] absolute sm:mt-[470px]">°C</p>
+            <p className="text-white mt-[410px] ml-[170px] text-[30px] absolute sm:mt-[470px] sm:ml-[170px]">
+              °C
+            </p>
           </div>
-          <p className="text-[#A09FB1] text-[36px] text-center">{}</p>
+          <p className="text-[#A09FB1] text-[36px] text-center sm:mt-[50px]">
+            {data && data.weather[0].main}
+          </p>
+          <div className="flex gap-2 pt-[80px] font-Raleway text-[#A09FB1]">
+            <p className="ml-[148px] sm:ml-[38%]">Today • </p>
+            <p>hoy</p>
+          </div>
+          <div className="flex justify-center mt-[31px] gap-1 sm:mt-[70px]">
+            <img src={ubi} alt='ubication icon' className="w-[24px] h-[24px]"/>
+            <p className="font-Raleway text-[#A09FB1]">{data && data.name}</p>
+          </div>
         </div>
       </div>
       <div className="w-[375px] h-[1718px] sm:w-[981px] sm:h-[1023px] bg-[#100E1D] z-50">
