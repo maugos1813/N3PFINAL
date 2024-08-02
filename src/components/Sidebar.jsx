@@ -123,8 +123,8 @@ export const Sidebar = () => {
   );
 
   return (
-    <div className="sm:flex font-Raleway">
-      <div className="w-[375px] h-[810px] sm:w-[459px] sm:h-[1023px] bg-[#1E213A]">
+    <div className="sm:flex font-Raleway h-[100%] sm:h-[100%]">
+      <div className="w-full h-[150%] sm:w-[43%] sm:h-[100%] bg-[#1E213A]">
         <div>
           <UpButtons ShowModal={ShowModal} onClick={handleLocationClick} />
           <CloudesIcon icon={ubi} />
@@ -145,7 +145,7 @@ export const Sidebar = () => {
             <p>Today • </p>
             <p>{data ? formateDate(data.dt) : "N/A"}</p>
           </div>
-          <div className="flex justify-center mt-[31px] gap-1 sm:mt-[70px]">
+          <div className="flex justify-center mt-[31px] gap-1 sm:mt-[70px] ">
             <img src={ubi} alt="ubication icon" className="w-[24px] h-[24px]" />
             <p className="font-Raleway text-[#A09FB1]">
               {data && data.name ? data.name : "N/A"}
@@ -153,13 +153,13 @@ export const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="w-[375px] h-[1718px] sm:w-[981px] sm:h-[1023px] bg-[#100E1D] z-50">
+      <div className="w-full h-[100%] sm:w-[1/3] sm:h-[100%] bg-[#100E1D] z-50">
         <div>
           <div className="flex sm:ml-[78%] sm:mb-[55px]">
             <ButtonG grado="°C" />
             <ButtonG grado="°F" />
           </div>
-          <div className="sm:flex sm:mb-[55px] sm:ml-[15%]">
+          <div className="sm:flex sm:mb-[55px] sm:ml-[23px] sm-[23px] justify-center">
             <Boxes
               text="Tomorrow"
               text2={
@@ -219,10 +219,10 @@ export const Sidebar = () => {
             />
           </div>
         </div>
-        <div className="mt-[30px] text-[21px] sm:ml-[15%]">
-          <p className="text-white ml-[23px]">Today's Highlights</p>
+        <div className="mt-[30px] text-[21px] sm:ml-[23%]">
+          <p className="text-white ml-[23px] flex justify-left">Today's Highlights</p>
         </div>
-        <div className="sm:flex sm:gap-[48px] sm:ml-[15%] ml-[23px]">
+        <div className="sm:flex sm:gap-[48px] ml-[23px] justify-center">
           <BigBox
             Wind="Wind status"
             number={data && data.wind ? Math.round(data.wind.speed) : "N/A"}
@@ -237,7 +237,7 @@ export const Sidebar = () => {
             />
           </div>
         </div>
-        <div className="sm:flex sm:gap-[48px] sm:ml-[15%] ml-[23px]">
+        <div className="sm:flex sm:gap-[48px] ml-[23px] justify-center">
           <MediumBox
             title="Visibility"
             miles={data ? (data.visibility / 1609.34).toFixed(1) : "N/A"}
