@@ -9,6 +9,7 @@ import { MediumBox } from "./MediumBox";
 import { Footer } from "./Footer";
 import { ModalSearch } from "./ModalSearch";
 import ubi from "/alfiler.png";
+import flecha from '/flecha.png'
 
 export const Sidebar = () => {
   const [modal, setModal] = useState(false);
@@ -235,6 +236,7 @@ export const Sidebar = () => {
             number={data && data.wind ? Math.round(data.wind.speed) : "N/A"}
             stat="mhp"
             WSW="WSW"
+            img={flecha}
           />
           <div>
             <BigBox
