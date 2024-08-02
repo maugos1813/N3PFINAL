@@ -10,6 +10,7 @@ import { Footer } from "./Footer";
 import { ModalSearch } from "./ModalSearch";
 import ubi from "/alfiler.png";
 import flecha from '/flecha.png'
+import circle from '/circle.png'
 
 export const Sidebar = () => {
   const [modal, setModal] = useState(false);
@@ -243,6 +244,7 @@ export const Sidebar = () => {
               Wind="Humidity"
               number={data && data.main ? data.main.humidity + "%" : "N/A"}
               barra={barraM}
+              img={circle}
             />
           </div>
         </div>
