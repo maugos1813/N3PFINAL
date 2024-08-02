@@ -17,6 +17,7 @@ export const Sidebar = () => {
   const [cityname, setCityName] = useState("Zooca");
   const [data, setData] = useState(null);
   const [datas, setDatas] = useState(null);
+  const [unit, setUnit] = useState("C"); 
 
   const getData = async () => {
     try {
@@ -122,6 +123,12 @@ export const Sidebar = () => {
     </div>
   );
 
+  const getTemperature = (tempK) => {
+    return unit === "C"
+      ? Math.round(tempK - 273.15)
+      : Math.round((tempK - 273.15) * 9/5 + 32);
+  };
+
   return (
     <div className="sm:flex font-Raleway h-[100%] sm:h-[100%]">
       <div className="w-full h-[150%] sm:w-[43%] sm:h-[100%] bg-[#1E213A]">
@@ -130,10 +137,10 @@ export const Sidebar = () => {
           <CloudesIcon icon={ubi} />
           <div className="flex place-content-center">
             <p className="text-white text-center mt-[290px] text-[144px] sm:mt-[350px] font-Raleway w-[192px]">
-              {data && data.main ? Math.round(data.main.temp - 273.15) : "N/A"}
+              {data && data.main ? getTemperature(data.main.temp) : "N/A"}
             </p>
             <p className="text-white mt-[410px] ml-[170px] text-[30px] absolute sm:mt-[470px] sm:ml-[170px]">
-              °C
+              °{unit}
             </p>
           </div>
           <p className="text-[#A09FB1] text-[36px] text-center sm:mt-[50px]">
@@ -145,7 +152,7 @@ export const Sidebar = () => {
             <p>Today • </p>
             <p>{data ? formateDate(data.dt) : "N/A"}</p>
           </div>
-          <div className="flex justify-center mt-[31px] gap-1 sm:mt-[70px] ">
+          <div className="flex justify-center mt-[31px] gap-1 sm:mt-[15.5%] sm:mb-[2px]">
             <img src={ubi} alt="ubication icon" className="w-[24px] h-[24px]" />
             <p className="font-Raleway text-[#A09FB1]">
               {data && data.name ? data.name : "N/A"}
@@ -156,8 +163,8 @@ export const Sidebar = () => {
       <div className="w-full h-[100%] sm:w-[1/3] sm:h-[100%] bg-[#100E1D] z-50">
         <div>
           <div className="flex sm:ml-[78%] sm:mb-[55px]">
-            <ButtonG grado="°C" />
-            <ButtonG grado="°F" />
+            <ButtonG grado="°C" onClick={() => setUnit("C")} />
+            <ButtonG grado="°F" onClick={() => setUnit("F")} />
           </div>
           <div className="sm:flex sm:mb-[55px] sm:ml-[23px] sm-[23px] justify-center">
             <Boxes
@@ -169,12 +176,12 @@ export const Sidebar = () => {
               }
               temp={
                 datas && datas.list && datas.list[0]
-                  ? Math.round(datas.list[0].main.temp - 273.15)
+                  ? getTemperature(datas.list[0].main.temp)
                   : "N/A"
               }
               temp2={
                 datas && datas.list && datas.list.length > 8
-                  ? Math.round(datas.list[8].main.temp - 273.15)
+                  ? getTemperature(datas.list[8].main.temp)
                   : "N/A"
               }
               img="0"
@@ -193,12 +200,12 @@ export const Sidebar = () => {
               }
               temp={
                 datas && datas.list && datas.list.length > 16
-                  ? Math.round(datas.list[16].main.temp - 273.15)
+                  ? getTemperature(datas.list[16].main.temp)
                   : "N/A"
               }
               temp2={
                 datas && datas.list && datas.list.length > 24
-                  ? Math.round(datas.list[24].main.temp - 273.15)
+                  ? getTemperature(datas.list[24].main.temp)
                   : "N/A"
               }
               img="16"
@@ -212,7 +219,7 @@ export const Sidebar = () => {
               }
               temp={
                 datas && datas.list && datas.list.length > 32
-                  ? Math.round(datas.list[32].main.temp - 273.15)
+                  ? getTemperature(datas.list[32].main.temp)
                   : "N/A"
               }
               img="32"
@@ -264,3 +271,4 @@ export const Sidebar = () => {
     </div>
   );
 };
+
