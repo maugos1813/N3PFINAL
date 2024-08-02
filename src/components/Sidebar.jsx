@@ -12,25 +12,35 @@ import ubi from "/alfiler.png";
 
 export const Sidebar = () => {
   const [modal, setModal] = useState(false);
-  const [lat, setLat] = useState('44.34');
-  const [lon, setLon] = useState('10.99');
-  const [cityname, setCityName] = useState('Zooca');
+  const [lat, setLat] = useState("44.34");
+  const [lon, setLon] = useState("10.99");
+  const [cityname, setCityName] = useState("Zooca");
   const [data, setData] = useState(null);
   const [datas, setDatas] = useState(null);
 
   const getData = async () => {
     try {
-      const rs = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=0c5f51177f273108b4b1465c901f0589`);
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=0c5f51177f273108b4b1465c901f0589`;
+      console.log(`Fetching weather data from: ${url}`);
+      const rs = await fetch(url);
+      if (!rs.ok) {
+        throw new Error(`HTTP error! status: ${rs.status}`);
+      }
       const jsonRs = await rs.json();
       setData(jsonRs);
     } catch (error) {
       console.error("Error fetching weather data: ", error);
     }
   };
-
+  
   const getDatas = async () => {
     try {
-      const rs = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=0c5f51177f273108b4b1465c901f0589`);
+      const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=0c5f51177f273108b4b1465c901f0589`;
+      console.log(`Fetching forecast data from: ${url}`);
+      const rs = await fetch(url);
+      if (!rs.ok) {
+        throw new Error(`HTTP error! status: ${rs.status}`);
+      }
       const jsonRs = await rs.json();
       setDatas(jsonRs);
     } catch (error) {
@@ -100,7 +110,9 @@ export const Sidebar = () => {
         <div
           className="h-full bg-yellow-300 rounded-[80px]"
           style={{
-            width: `${data && data.main && data.main.humidity ? data.main.humidity : 0}%`,
+            width: `${
+              data && data.main && data.main.humidity ? data.main.humidity : 0
+            }%`,
           }}
         ></div>
       </div>
@@ -125,7 +137,9 @@ export const Sidebar = () => {
             </p>
           </div>
           <p className="text-[#A09FB1] text-[36px] text-center sm:mt-[50px]">
-            {data && data.weather && data.weather.length > 0 ? data.weather[0].main : "N/A"}
+            {data && data.weather && data.weather.length > 0
+              ? data.weather[0].main
+              : "N/A"}
           </p>
           <div className="flex gap-2 pt-[80px] font-Raleway text-[#A09FB1] justify-center">
             <p>Today • </p>
@@ -133,7 +147,9 @@ export const Sidebar = () => {
           </div>
           <div className="flex justify-center mt-[31px] gap-1 sm:mt-[70px]">
             <img src={ubi} alt="ubication icon" className="w-[24px] h-[24px]" />
-            <p className="font-Raleway text-[#A09FB1]">{data && data.name ? data.name : "N/A"}</p>
+            <p className="font-Raleway text-[#A09FB1]">
+              {data && data.name ? data.name : "N/A"}
+            </p>
           </div>
         </div>
       </div>
@@ -146,23 +162,59 @@ export const Sidebar = () => {
           <div className="sm:flex sm:mb-[55px] sm:ml-[15%]">
             <Boxes
               text="Tomorrow"
-              text2={datas && datas.list && datas.list[8] ? formatDate(datas.list[8].dt_txt) : "N/A"}
-              temp={datas && datas.list && datas.list[0] ? Math.round(datas.list[0].main.temp - 273.15) : "N/A"}
-              temp2={datas && datas.list && datas.list.length > 8 ? Math.round(datas.list[8].main.temp - 273.15) : "N/A"}
+              text2={
+                datas && datas.list && datas.list[8]
+                  ? formatDate(datas.list[8].dt_txt)
+                  : "N/A"
+              }
+              temp={
+                datas && datas.list && datas.list[0]
+                  ? Math.round(datas.list[0].main.temp - 273.15)
+                  : "N/A"
+              }
+              temp2={
+                datas && datas.list && datas.list.length > 8
+                  ? Math.round(datas.list[8].main.temp - 273.15)
+                  : "N/A"
+              }
               img="0"
               img2="8"
             />
             <Boxes
-              text={datas && datas.list && datas.list[16] ? formatDate(datas.list[16].dt_txt) : "N/A"}
-              text2={datas && datas.list && datas.list[24] ? formatDate(datas.list[24].dt_txt) : "N/A"}
-              temp={datas && datas.list && datas.list.length > 16 ? Math.round(datas.list[16].main.temp - 273.15) : "N/A"}
-              temp2={datas && datas.list && datas.list.length > 24 ? Math.round(datas.list[24].main.temp - 273.15) : "N/A"}
+              text={
+                datas && datas.list && datas.list[16]
+                  ? formatDate(datas.list[16].dt_txt)
+                  : "N/A"
+              }
+              text2={
+                datas && datas.list && datas.list[24]
+                  ? formatDate(datas.list[24].dt_txt)
+                  : "N/A"
+              }
+              temp={
+                datas && datas.list && datas.list.length > 16
+                  ? Math.round(datas.list[16].main.temp - 273.15)
+                  : "N/A"
+              }
+              temp2={
+                datas && datas.list && datas.list.length > 24
+                  ? Math.round(datas.list[24].main.temp - 273.15)
+                  : "N/A"
+              }
               img="16"
               img2="24"
             />
             <Box
-              text={datas && datas.list && datas.list.length > 32 ? formatDate(datas.list[32].dt_txt) : "N/A"}
-              temp={datas && datas.list && datas.list.length > 32 ? Math.round(datas.list[32].main.temp - 273.15) : "N/A"}
+              text={
+                datas && datas.list && datas.list.length > 32
+                  ? formatDate(datas.list[32].dt_txt)
+                  : "N/A"
+              }
+              temp={
+                datas && datas.list && datas.list.length > 32
+                  ? Math.round(datas.list[32].main.temp - 273.15)
+                  : "N/A"
+              }
               img="32"
             />
           </div>
@@ -200,7 +252,14 @@ export const Sidebar = () => {
         <div>
           <Footer />
         </div>
-        <div>{modal && <ModalSearch ShowModal={ShowModal} updateCoordinates={updateCoordinates} />}</div>
+        <div>
+          {modal && (
+            <ModalSearch
+              ShowModal={ShowModal}
+              updateCoordinates={updateCoordinates}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
