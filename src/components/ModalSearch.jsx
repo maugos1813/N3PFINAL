@@ -11,7 +11,7 @@ export const ModalSearch = ({ ShowModal, updateCoordinates }) => {
 
   return (
     <div className="">
-      <div className="w-[375px] h-[672px] bg-[#1E213A] mt-[-2490px] sm:w-[459px] sm:h-screen absolute sm:mt-[-960px] sm:ml-[-459px]">
+      <div className="w-[375px] h-[672px] bg-[#1E213A] mt-[-2490px] sm:w-[459px]  absolute sm:mt-[-930px] sm:ml-[-459px]">
         <div>
           <button
             className="text-[#E7E7EB] flex place-content-center w-[24px] h-[24px] ml-[339px] text-[30px] sm:ml-[381px]"

@@ -10,7 +10,7 @@ export const BigBox = ({Wind, number, stat, WSW, barra, img}) => {
               <span className='text-[36px] pt-[25px] text-[#E7E7EB]'>{stat}</span>
             </div>
             <div className='text-center text-[#E7E7EB]'>
-              <img src={img} alt="ubi direction" className='absolute ml-[120px]'/>
+              <img src={img} alt="." className='absolute ml-[120px]'/>
               <p>{WSW}</p>
             </div>
             <div>
