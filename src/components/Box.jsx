@@ -21,7 +21,7 @@ export const Box = ({ text, temp, img }) => {
             datas.list[img].weather[0].icon
           }.png`}
           alt="weather icon"
-          className="w-[62px] h-[62px] mt-[14px]"
+          className="w-[62px] h-[62px] mt-[10px]"
         />
         <div className="flex">
           <p className="mt-[15px] font-Raleway text-center">{temp} °C</p>

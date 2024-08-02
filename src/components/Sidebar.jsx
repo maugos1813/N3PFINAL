@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UpButtons } from "./UpButtons";
 import { CloudesIcon } from "./CloudesIcon";
 import { Boxes } from "./Boxes";
@@ -11,21 +11,86 @@ import { ModalSearch } from "./ModalSearch";
 import { API } from "../useFetch";
 import ubi from "/alfiler.png";
 import { APIs } from "../useFetch5";
+import { City } from "../useFetchCity";
+import { CityS } from "../useFetchCityS";
 
 export const Sidebar = () => {
   const [modal, setModal] = useState(false);
+  const [lat, setLat] = useState('44.34');
+  const [lon, setLon] = useState('10.99');
+  const [cityname, setCityName] = useState('Zooca')
 
-  const { data } = API(
-    `https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=0c5f51177f273108b4b1465c901f0589`
-  );
+
+    const [data, setData] = useState([])
+
+    const getData = async () => {
+        const rs = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=0c5f51177f273108b4b1465c901f0589`)
+        const jsonRs = await rs.json()
+        setData(jsonRs)
+    }
+
+    useEffect(() => {
+        getData()
+    }, [lat, lon])
+
+    const handleLocationClick = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setLat(latitude)
+            setLon(longitude)
+            console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+    };
+
+ 
+
+  // const { data } = API( 
+  //   `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=0c5f51177f273108b4b1465c901f0589`
+  // );
 
   const { datas } = APIs(
-    `http://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=0c5f51177f273108b4b1465c901f0589`
+    `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=0c5f51177f273108b4b1465c901f0589`
   );
 
-  const ShowModal = () => {
-    setModal(!modal);
+  // const { dataC } = City(
+  //   `http://api.openweathermap.org/data/2.5/forecast?q=${cityname}&appid=0c5f51177f273108b4b1465c901f0589`
+  // );
+
+  // const { dataS } = CityS(
+  //   `http://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=0c5f51177f273108b4b1465c901f0589`
+  // );
+
+  const ShowModal = () => { 
+    setModal(!modal); 
   };
+
+  const updateCoordinates = (newLat, newLon) => {
+    setLat(newLat); 
+    setLon(newLon);
+    console.log(newLat);
+    console.log(newLon);
+
+    ShowModal();
+  };
+
+  useEffect(() => {
+  console.log(data);
+    
+  }, [data]);
+
+  useEffect(()=>{
+    setLat(lat)
+    setLon(lon)
+  },[])
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -70,11 +135,11 @@ export const Sidebar = () => {
     <div className="sm:flex font-Raleway">
       <div className="w-[375px] h-[810px] sm:w-[459px] sm:h-[1023px] bg-[#1E213A]">
         <div>
-          <UpButtons ShowModal={ShowModal} />
+          <UpButtons ShowModal={ShowModal} onClick={handleLocationClick} />
           <CloudesIcon icon={ubi} />
           <div className="flex place-content-center">
             <p className="text-white text-center mt-[290px] text-[144px] sm:mt-[350px] font-Raleway w-[192px]">
-              {data && Math.round(data?.main?.temp - 273.15)}
+              {data && Math.round(data?.main?.temp - 273.15)} 
             </p>
             <p className="text-white mt-[410px] ml-[170px] text-[30px] absolute sm:mt-[470px] sm:ml-[170px]">
               °C
@@ -216,7 +281,7 @@ export const Sidebar = () => {
         <div>
           <Footer />
         </div>
-        <div>{modal && <ModalSearch ShowModal={ShowModal} />}</div>
+        <div> {modal && <ModalSearch ShowModal={ShowModal} updateCoordinates={updateCoordinates} />}</div>
       </div>
     </div>
   );
