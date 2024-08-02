@@ -35,7 +35,7 @@ export const Sidebar = () => {
   
   const getDatas = async () => {
     try {
-      const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=0c5f51177f273108b4b1465c901f0589`;
+      const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=0c5f51177f273108b4b1465c901f0589`;
       console.log(`Fetching forecast data from: ${url}`);
       const rs = await fetch(url);
       if (!rs.ok) {

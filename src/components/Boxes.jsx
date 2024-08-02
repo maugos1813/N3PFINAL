@@ -4,7 +4,7 @@ import { APIs } from "../useFetch5";
 
 export const Boxes = ({ text, text2, img, temp, temp2, img2 }) => {
   const { datas } = APIs(
-    `http://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=0c5f51177f273108b4b1465c901f0589`
+    `https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=0c5f51177f273108b4b1465c901f0589`
   );
 
   return (
